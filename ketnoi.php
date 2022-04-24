@@ -13,12 +13,4 @@
     }else{
         echo("Kết nối ko thành công!");
     } 
-    //truy vấn lấy về danh mục
-    $truyvanDM = "SELECT * FROM truyen";
-    $data = mysqli_query($conn, $truyvanDM);
-
-    while($row = mysqli_fetch_assoc($data)){
-        echo"id:".$row["mã truyện"]."<br>";
-        echo"<hr>";
-    } 
 ?>

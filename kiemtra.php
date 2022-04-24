@@ -21,7 +21,7 @@
 <body>
 <?php 
 //tao ket noi và kiem tra kết nối
-/*$servername ="localhost";
+$servername ="localhost";
 $username ="root";
 $password ="";
 $database ="quanlythuetruyen2";
@@ -32,7 +32,7 @@ if($conn){
     echo("kết nối thành công!");
 }else{
     echo("Kết nối ko thành công!");
-} */
+} 
  ?>
 <header>
         <div class="container-fluid">

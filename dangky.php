@@ -9,14 +9,14 @@
         div{
             width: 100%;
             height: 80vh;
-            background-image: url(img/2.jpg);
+            background-image: url(img/4.jpg);
             padding-top: 10%;
         }
         form{
             border: 1px;
             width: 20%;
             height: 45vh;
-            background-color: white;
+            background-color: black;
             border-radius:10px;
             text-align:center;
             margin-left: 35%;
@@ -30,6 +30,9 @@
             margin-top:5%;
             width: 30%;
             font-size: large;
+        }
+        h2,h3{
+            color: red;
         }
     </style>
 </head>
@@ -53,6 +56,7 @@
     <div>
         <?php
 
+            //Xử lý đăng nhập
             if(isset($_POST["them"])){
                 $hoten = $_POST["hoten"];
                 $email = $_POST["email"];
@@ -62,14 +66,28 @@
                 if($email ==""){echo "vui lòng nhập vào email <br/>";}
                 if($password ==""){echo "vui lòng nhập vào password <br/>";}
 
-                if($hoten!="" && $email!="" && $password!=""){
+                // Kiểm tra username hoặc email có bị trùng hay không
+                $sql = "SELECT * FROM nguoi_dung WHERE hoten = '$hoten' OR email = '$email'";
+                
+                // Thực thi câu truy vấn
+                $result = mysqli_query($conn, $sql);
+                
+                // Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
+                if(mysqli_num_rows($result) > 0)
+                {
+                    // Sử dụng javascript để thông báo
+                    echo '<script language="javascript">alert("Thông tin đăng nhập bị sai");  window.location="dangky.php";</script>';
+                    
+                    // Dừng chương trình
+                    die ();
+                }else{
 
-                    $sql = "INSERT INTO nguoi_dung(Ten_khach,email,mat_khau) VALUES('$hoten','$email','$password')";
+                    $sql = "INSERT INTO nguoi_dung(hoten,email,mat_khau) VALUES('$hoten','$email','$password')";
 
                     if($conn->query($sql)){
-                        echo ("<script>alert('thêm thành công!');</script>");
+                        echo ("<script>alert('đăng ký thành công!');</script>");
                     }else{
-                        echo ("<script>alert('thêm ko  thành công!');</script>");
+                        echo ("<script>alert('đăng ký ko  thành công!');</script>");
                     }
                 }
             }
